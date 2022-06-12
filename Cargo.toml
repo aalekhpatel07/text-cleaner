@@ -1,0 +1,10 @@
+[workspace]
+
+members = [
+	"text-cleaner",
+	"yew-frontend",
+	"src-tauri"
+]
+
+[profile.release]
+lto = "fat"
