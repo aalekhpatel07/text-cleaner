@@ -1,0 +1,15 @@
+[package]
+name = "text-cleaner"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+regex = "1.5"
+lazy_static = "1.4.0"
+diacritics = { version = "0.1.3" }
+validator = { version="0.15" }
+unicode-normalization = { version = "0.1.19"}
+linkify = { version = "0.8.1"}
+hashbrown = { version = "0.11.2" }
