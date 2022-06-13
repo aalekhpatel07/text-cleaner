@@ -9,8 +9,11 @@ edition = "2021"
 yew = "0.19.3"
 wasm-bindgen = "0.2.78"
 wasm-bindgen-futures = "0.4.28"
-web-sys = "0.3.55"
+web-sys = { version = "0.3.55" }
 js-sys = "0.3.55"
 wasm-logger = "0.2.0"
 text-cleaner = { path = "../text-cleaner" }
 yew-router = { version = "0.16" }
+anyhow = "1.0"
+log = "0.4.6"
+hashbrown = "0.12.1"

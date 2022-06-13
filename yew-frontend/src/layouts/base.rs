@@ -1,30 +1,31 @@
+use crate::components::InputOutputBox;
+use crate::components::Navbar;
 use yew::prelude::*;
 use yew::{Children, ContextProvider};
 use yew_router::BrowserRouter;
-use crate::components::Navbar;
-use crate::contexts::Theme;
-
 
 #[derive(Debug, Properties, PartialEq)]
 pub struct Props {
-    pub children: Children
+    pub children: Children,
 }
 
 #[function_component(BaseLayout)]
 pub fn base_layout(props: &Props) -> Html {
-    let theme = use_context::<Theme>().unwrap();
 
     html! {
-        <div class="flex">
-            <div 
-                class="bg-blue-400 w-1/5 min-h-screen border-r border-gray-800"
+        <div class="flex h-screen space-x-8">
+            <div
+                class="w-1/4 overflow-hidden"
             >
-                <Navbar/>
+                <InputOutputBox/>
             </div>
             <div
-                class="w-4/5 bg-yellow-300 min-h-screen"
+                class="w-3/4 h-full overflow-hidden"
             >
-                { for props.children.iter() }
+                <Navbar/>
+                <div class="w-full bg-neutral p-8 h-full">
+                    { for props.children.iter() }
+                </div>
             </div>
         </div>
     }

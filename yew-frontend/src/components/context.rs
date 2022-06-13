@@ -10,13 +10,16 @@ pub struct ContextProps {
 
 #[function_component(ContextComp)]
 pub fn context_comp(props: &ContextProps) -> Html {
-    let theme = use_state(|| Theme::dark());
+    let text = use_reducer(|| TextInput::new());
+    let config = use_reducer(|| ProcessorConfigNames::new());
 
     html! {
-            <ContextProvider<Theme> context={(*theme).clone()}>
-                <div class="h-full w-full bg-red-800">
+        <ContextProvider<ProcessorConfigNamesContext> context={config}>
+            <ContextProvider<TextInputContext> context={text}>
+                <div class="h-full w-full">
                     { for props.children.iter() }
                 </div>    
-            </ContextProvider<Theme>>
+            </ContextProvider<TextInputContext>>
+        </ContextProvider<ProcessorConfigNamesContext>>
     }
 }

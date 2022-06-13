@@ -7,7 +7,6 @@ use yew_router::{Switch, BrowserRouter};
 use yew::prelude::*;
 use text_cleaner_frontend::ContextComp;
 
-
 #[function_component(Base)]
 fn base() -> Html {
     html! {
@@ -20,5 +19,6 @@ fn base() -> Html {
 }
 
 fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
     yew::start_app::<Base>();
 }
