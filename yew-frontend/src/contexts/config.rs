@@ -69,7 +69,7 @@ impl TryFrom<ProcessorConfigNames> for ProcessorConfig {
         for func in config_names.functions {
             match config.try_add(&func) {
                 Ok(()) => {},
-                Err(e) => {panic!();}
+                Err(_e) => {panic!();}
             }
         }
         Ok(config)

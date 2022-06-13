@@ -1,8 +1,8 @@
 use log::info;
 use yew::{prelude::*, context::ContextHandle};
-use hashbrown::{HashMap, HashSet};
+use hashbrown::{HashMap};
 
-use crate::contexts::{ProcessorConfigNamesContext, TextProcessor, ProcessorConfigNames};
+use crate::contexts::{ProcessorConfigNamesContext, ProcessorConfigNames};
 
 
 #[derive(Debug, Clone)]
@@ -65,7 +65,7 @@ impl Component for Settings {
                     { for check_boxes.into_iter().map(|(key, value)| {
 
                         let key_cp = key.clone();
-                        let on_value_change = ctx.link().callback(|x| Msg::Refresh(x));
+                        let on_value_change = ctx.link().callback(Msg::Refresh);
 
                         html! {
                             <div class="flex items-center justify-start">
@@ -88,7 +88,7 @@ impl Component for Settings {
     }
 
 
-    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::ProcessorConfigNamesContextUpdated(processor_config_names) => {
                 info!("ProcessorConfigNamesContextUpdated {:?}", processor_config_names);
@@ -112,7 +112,7 @@ impl Component for Settings {
         }
         true
     }
-    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
+    fn rendered(&mut self, _ctx: &Context<Self>, _first_render: bool) {
         for (function_name, check_box_node) in self.check_boxes.iter() {
 
             if let Some(check_box) = check_box_node.cast::<web_sys::HtmlInputElement>() {

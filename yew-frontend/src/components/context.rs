@@ -10,8 +10,8 @@ pub struct ContextProps {
 
 #[function_component(ContextComp)]
 pub fn context_comp(props: &ContextProps) -> Html {
-    let text = use_reducer(|| TextInput::new());
-    let config = use_reducer(|| ProcessorConfigNames::new());
+    let text = use_reducer(TextInput::new);
+    let config = use_reducer(ProcessorConfigNames::new);
 
     html! {
         <ContextProvider<ProcessorConfigNamesContext> context={config}>

@@ -1,14 +1,14 @@
 use crate::contexts::*;
-use crate::router::Route;
-use js_sys::Array;
-use wasm_bindgen::JsValue;
+
+
+
 use yew::context::ContextHandle;
 use yew::prelude::*;
 use yew::Properties;
-use yew_router::prelude::*;
-use yew::{Callback};
+
+
 use crate::glue::copy_to_clipboard;
-use web_sys::console;
+
 use log::{info, error};
 
 #[derive(PartialEq, Properties)]
@@ -194,7 +194,7 @@ impl Component for InputOutputBox {
         }
     }
 
-    fn rendered(&mut self, ctx: &Context<Self>, first_render: bool) {
+    fn rendered(&mut self, _ctx: &Context<Self>, _first_render: bool) {
         
         
         if let Some(input) = self.input_node_ref.cast::<web_sys::HtmlTextAreaElement>() {
@@ -207,7 +207,7 @@ impl Component for InputOutputBox {
 
     fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
 
-        let on_copied = ctx.link().callback(|s| Msg::Copied(s));
+        let on_copied = ctx.link().callback(Msg::Copied);
 
         match msg {
             Msg::TextInputContextUpdated(text_input_context) => {
@@ -220,7 +220,7 @@ impl Component for InputOutputBox {
             Msg::Change => {
                 if let Some(input) = self.input_node_ref.cast::<web_sys::HtmlTextAreaElement>() {
                     let input_text = input.value();
-                    self.text_input.dispatch(input_text.clone());
+                    self.text_input.dispatch(input_text);
                 }
             },
             Msg::CopyRaw => {
