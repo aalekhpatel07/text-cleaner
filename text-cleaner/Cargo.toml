@@ -5,6 +5,9 @@ edition = "2021"
 description = "An implementation of some common text manipulation operations."
 license-file = "../LICENSE.md"
 readme = "README.md"
+documentation = "https://docs.rs/text-cleaner"
+repository = "https://github.com/aalekhpatel07/text-cleaner"
+homepage = "https://docs.rs/text-cleaner"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
