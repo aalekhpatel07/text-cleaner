@@ -1,11 +1,11 @@
 [package]
-name = "app"
+name = "text-cleaner-app"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+description = "A Tauri app to clean some text with common operations."
+authors = ["Aalekh Patel <aalekh.gwpeck.7998@icloud.com>"]
 license = ""
-repository = ""
-default-run = "app"
+repository = "http://github.com/aalekhpatel07/text-cleaner"
+default-run = "text-cleaner-app"
 edition = "2021"
 rust-version = "1.57"
 
