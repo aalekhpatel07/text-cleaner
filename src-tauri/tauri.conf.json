@@ -1,6 +1,6 @@
 {
   "build": {
-    "beforeBuildCommand": "cd yew-frontend && trunk build",
+    "beforeBuildCommand": "cd yew-frontend && trunk build --release",
     "beforeDevCommand": "cd yew-frontend && trunk serve",
     "devPath": "http://localhost:8080",
     "distDir": "../yew-frontend/dist",
