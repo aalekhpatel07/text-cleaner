@@ -1,7 +1,14 @@
 [package]
 name = "text-cleaner-frontend"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
+authors = ["Aalekh Patel <aalekh.gwpeck.7998@icloud.com>"]
+description = "A web app that lets you manipulate text using some common text operations."
+homepage = "https://github.com/aalekhpatel07/text-cleaner"
+repository = "https://github.com/aalekhpatel07/text-cleaner"
+readme = "README.md"
+workspace = "../"
+license-file = "../LICENSE.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
