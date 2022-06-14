@@ -1,5 +1,6 @@
-use crate::contexts::*;
+use std::ops::Deref;
 
+use crate::contexts::*;
 
 
 use yew::context::ContextHandle;
@@ -21,6 +22,7 @@ pub struct InputOutputBox {
     processor_config_names: ProcessorConfigNamesContext,
     _text_input_context_handle: ContextHandle<TextInputContext>,
     _processor_config_names_context_handle: ContextHandle<ProcessorConfigNamesContext>,
+    processor: TextProcessor
 }
 
 pub enum Msg {
@@ -63,9 +65,10 @@ impl Component for InputOutputBox {
             input_node_ref: NodeRef::default(),
             output_node_ref: NodeRef::default(),
             text_input,
+            processor: TextProcessor::with_config_names(processor_config_names.deref()).unwrap(),
             processor_config_names,
             _text_input_context_handle: text_input_ctx_handle,
-            _processor_config_names_context_handle: processor_config_names_ctx_handle
+            _processor_config_names_context_handle: processor_config_names_ctx_handle,
         }
     }
 
@@ -78,8 +81,8 @@ impl Component for InputOutputBox {
         let on_processed_text_copy_pressed = ctx.link().callback(|_| Msg::CopyProcessed);
 
         html! {
-            <div class="h-full w-full overflow-auto flex flex-col justify-around">
-                <section class="p-4 space-y-4">
+            <div class="w-full overflow-auto flex flex-col justify-start gap-8 px-2 py-4">
+                <section class="px-4 space-y-4">
                     <div class="w-full flex justify-between items-center">
                         <h1 class="text-2xl"> {"Raw"} </h1>
                         <button class="btn btn-secondary p-0 rounded-md" title="Copy"
@@ -93,49 +96,19 @@ impl Component for InputOutputBox {
                                     <path d="M38.6031494,29.4603004H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997   s0.4544001,1.0158997,1.0159006,1.0158997h22.3491974c0.5615005,0,1.0158997-0.4543991,1.0158997-1.0158997   S39.16465,29.4603004,38.6031494,29.4603004z" />
                                     <path d="M28.4444485,37.5872993H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997   s0.4544001,1.0158997,1.0159006,1.0158997h12.1904964c0.5615025,0,1.0158005-0.4543991,1.0158005-1.0158997   S29.0059509,37.5872993,28.4444485,37.5872993z" />
                                 </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                </svg>
+                            </svg>
                         </button>
                     </div>
                     <textarea
                         ref={self.input_node_ref.clone()}
                         class="textarea textarea-bordered resize-y w-full rounded-lg"
-                        rows="12"
-                        placeholder="Copy and paste your text here. Change the settings on the right and watch for results on the bottom."
+                        rows="10"
+                        placeholder="Copy and paste your text here. Change the settings and watch the results update live on the bottom."
                         onkeyup={onkeyup}
                     >
                     </textarea>
                 </section>
-                <section class="p-4 space-y-4">
+                <section class="px-4 space-y-4">
                     <div class="w-full flex justify-between items-center">
                         <h1 class="text-2xl"> {"Processed"} </h1>
                         <button class="btn btn-secondary p-0 rounded-md" title="Copy"
@@ -149,44 +122,14 @@ impl Component for InputOutputBox {
                                     <path d="M38.6031494,29.4603004H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997   s0.4544001,1.0158997,1.0159006,1.0158997h22.3491974c0.5615005,0,1.0158997-0.4543991,1.0158997-1.0158997   S39.16465,29.4603004,38.6031494,29.4603004z" />
                                     <path d="M28.4444485,37.5872993H16.253952c-0.5615005,0-1.0159006,0.4543991-1.0159006,1.0158997   s0.4544001,1.0158997,1.0159006,1.0158997h12.1904964c0.5615025,0,1.0158005-0.4543991,1.0158005-1.0158997   S29.0059509,37.5872993,28.4444485,37.5872993z" />
                                 </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                <g>
-                                </g>
-                                </svg>
+                            </svg>
                         </button>
                         </div>
                         <textarea
                             ref={self.output_node_ref.clone()}
                             class="textarea textarea-bordered resize-y w-full rounded-lg disabled:text-gray-200 cursor-pointer"
-                            rows="12"
-                            placeholder="Change text above and watch this change."
+                            rows="10"
+                            placeholder="This is where the processed text will be displayed. It is currently an empty string."
                         >
                         </textarea>
                 </section>
@@ -201,7 +144,9 @@ impl Component for InputOutputBox {
             input.set_value(self.text_input.raw.as_str());
         }
         if let Some(output) = self.output_node_ref.cast::<web_sys::HtmlTextAreaElement>() {
-            output.set_value(self.text_input.raw.as_str());
+
+            let processed = self.processor.process(self.text_input.raw.as_str());
+            output.set_value(processed.as_str());
         }
     }
 
@@ -211,10 +156,11 @@ impl Component for InputOutputBox {
 
         match msg {
             Msg::TextInputContextUpdated(text_input_context) => {
-                info!("TextInputContextUpdated: {:?}", text_input_context.raw.to_string());
                 self.text_input = text_input_context;
                 if let Some(output) = self.output_node_ref.cast::<web_sys::HtmlTextAreaElement>() {
-                    output.set_value(self.text_input.raw.as_str());
+
+                    let processed = self.processor.process(self.text_input.raw.as_str());
+                    output.set_value(processed.as_str());
                 }
             },
             Msg::Change => {
@@ -265,6 +211,7 @@ impl Component for InputOutputBox {
             }
             Msg::ProcessorConfigNamesContextUpdated(processor_config_names) => {
                 self.processor_config_names = processor_config_names;
+                self.processor = TextProcessor::with_config_names(self.processor_config_names.deref()).unwrap();
             }
         }
         true

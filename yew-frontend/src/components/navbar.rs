@@ -11,16 +11,11 @@ pub fn navbar() -> Html {
         <nav class="navbar bg-base-100 sticky top-0 ">
             <div class="flex-1">
                 <Link<Route> to={Route::Home}>
-                    <button class="btn btn-ghost normal-case text-xl">{"Text Cleaner"}</button>
+                    <button class="btn btn-ghost normal-case text-2xl">{"Text Cleaner"}</button>
                 </Link<Route>>
             </div>
             <div class="flex-none">
                 <ul class="menu menu-horizontal p-0">
-                    <li>
-                        <Link<Route> to={Route::About}>
-                            {"About"}
-                        </Link<Route>>
-                    </li>
                     <li>
                         <a href={github_url}>
                             <svg 

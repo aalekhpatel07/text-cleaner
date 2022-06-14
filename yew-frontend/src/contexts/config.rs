@@ -76,6 +76,21 @@ impl TryFrom<ProcessorConfigNames> for ProcessorConfig {
     }
 }
 
+impl TryFrom<&ProcessorConfigNames> for ProcessorConfig {
+    type Error = anyhow::Error;
+
+    fn try_from(config_names: &ProcessorConfigNames) -> Result<Self, Self::Error> {
+        let mut config = ProcessorConfig::new();
+        for func in &config_names.functions {
+            match config.try_add(func.as_str()) {
+                Ok(()) => {},
+                Err(_e) => {panic!();}
+            }
+        }
+        Ok(config)
+    }
+}
+
 
 pub fn toggle(hset: &HashSet<String>, key: &str) -> HashSet<String>
 {
@@ -94,7 +109,6 @@ impl Reducible for ProcessorConfigNames {
 
         let hset = toggle(&self.functions, &action);
         let size = hset.len();
-        info!("New should be: {:?}", hset);
         ProcessorConfigNames {
             functions: hset,
             size
@@ -172,7 +186,7 @@ impl TextProcessor {
             config: ProcessorConfig::new()
         }
     }
-    pub fn with_config_names(config_names: ProcessorConfigNames) -> anyhow::Result<Self> {
+    pub fn with_config_names(config_names: &ProcessorConfigNames) -> anyhow::Result<Self> {
         Ok(Self {
             config: ProcessorConfig::try_from(config_names)?
         })
