@@ -31,7 +31,7 @@ pub(crate) mod re {
     pub const ALL_PUNCTUATION: &str = r"[^\w\s]";
 
     /// A pattern that matches all al
-    pub const ALPHANUMERIC: &str = r"[\w]";
+    pub const ALPHANUMERIC: &str = r"[^\w]";
 
     pub const NON_ASCII: &str = r"[^\x00-\x7F]";
 
