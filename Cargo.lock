@@ -3062,7 +3062,7 @@ dependencies = [
 
 [[package]]
 name = "text-cleaner-app"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -3072,7 +3072,7 @@ dependencies = [
 
 [[package]]
 name = "text-cleaner-frontend"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "anyhow",
  "hashbrown 0.12.1",
