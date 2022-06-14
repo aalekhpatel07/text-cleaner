@@ -1,4 +1,4 @@
-use log::info;
+
 use yew::{UseReducerHandle, Reducible};
 
 #[derive(Debug, Clone, PartialEq)]

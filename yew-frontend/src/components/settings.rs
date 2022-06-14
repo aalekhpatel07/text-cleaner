@@ -1,4 +1,4 @@
-use log::info;
+
 use yew::{prelude::*, context::ContextHandle};
 use hashbrown::{HashMap};
 
@@ -29,7 +29,7 @@ pub fn snake_case_to_camel_case(s: &str) -> String {
     
     let capitalized =
     s
-    .replace(r"_", r" ")
+    .replace('_', r" ")
     .split_ascii_whitespace() 
     .map(|word| {
         let mut chars = word.chars();
@@ -39,7 +39,7 @@ pub fn snake_case_to_camel_case(s: &str) -> String {
     })
     .collect::<Vec<String>>();
 
-    String::from(capitalized.join(" "))
+    capitalized.join(" ")
 }
 
 impl Component for Settings {
